@@ -215,14 +215,23 @@
   </div>
 
   <script>
-    const start = new Date('2026-05-28T00:00:00');
-    function update() {
-      const now = new Date();
-      const diff = Math.floor((now - start) / 86400000);
-      document.getElementById('dayCount').textContent = Math.max(0, diff);
+    async function init() {
+      const response = await fetch('./page_info.json');
+      const data = await response.json();
+
+      const start = new Date(data.start + 'T00:00:00');
+
+      function update() {
+        const now = new Date();
+        const diff = Math.floor((now - start) / 86400000);
+        document.getElementById('dayCount').textContent = Math.max(0, diff);
+      }
+
+      update();
+      setInterval(update, 60000);
     }
-    update();
-    setInterval(update, 60000);
+
+    init();
   </script>
 </body>
 </html>
