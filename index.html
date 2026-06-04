@@ -200,8 +200,7 @@
           </div>
           <div class="divider"></div>
           <p class="tagline">
-            Every day without an incident<br>
-            is a gift. Stay vigilant.
+            Our current record is <span id="recordCount">0</span> days. Keep going!
           </p>
         </div>
 
@@ -220,6 +219,8 @@
       const data = await response.json();
 
       const start = new Date(data.start + 'T00:00:00');
+      let record = data.record ?? 0;
+      document.getElementById('recordCount').textContent = record;
 
       function update() {
         const now = new Date();
